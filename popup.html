@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Gemini Multi-Tab Automator</title>
+  <style>
+    :root {
+      --primary-color: #7c3aed;
+      --primary-dark: #5b21b6;
+      --secondary-color: #a855f7;
+      --accent-color: #c084fc;
+      --background-color: #0f0f23;
+      --surface-color: #1a1a2e;
+      --card-color: #16213e;
+      --text-primary: #f8fafc;
+      --text-secondary: #cbd5e1;
+      --text-muted: #94a3b8;
+      --border-color: #374151;
+      --success-color: #10b981;
+      --error-color: #ef4444;
+      --warning-color: #f59e0b;
+      --info-color: #06b6d4;
+      --radius: 12px;
+      --shadow: 0 4px 24px rgba(0,0,0,0.25);
+    }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: var(--background-color);
+      color: var(--text-primary);
+      min-width: 260px;
+      padding: 20px 16px 16px 16px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    button {
+      margin: 10px 0;
+      width: 100%;
+      padding: 10px 0;
+      font-size: 16px;
+      border: none;
+      border-radius: var(--radius);
+      background: var(--surface-color);
+      color: var(--text-primary);
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      cursor: pointer;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+    button:hover, button:focus {
+      background: var(--primary-color);
+      color: #fff;
+      outline: none;
+    }
+    #promptModal, #aistudioPromptModal {
+      display: none;
+      position: fixed;
+      left: 0; top: 0; width: 100vw; height: 100vh;
+      background: rgba(15,15,35,0.85);
+      z-index: 100;
+    }
+    #promptBox, #aistudioPromptBox {
+      background: var(--card-color);
+      margin: 60px auto;
+      padding: 20px 18px 16px 18px;
+      border-radius: var(--radius);
+      width: 95%;
+      max-width: 340px;
+      box-shadow: var(--shadow);
+      color: var(--text-primary);
+      position: relative;
+    }
+    textarea {
+      width: 100%;
+      height: 90px;
+      margin-top: 10px;
+      background: var(--surface-color);
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 8px;
+      font-size: 15px;
+      resize: vertical;
+      transition: border 0.2s;
+    }
+    textarea:focus {
+      border: 1.5px solid var(--primary-color);
+      outline: none;
+    }
+    #closeModal, #closeAistudioModal {
+      float: right;
+      cursor: pointer;
+      font-size: 22px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      transition: color 0.2s;
+    }
+    #closeModal:hover, #closeAistudioModal:hover {
+      color: var(--primary-color);
+    }
+    label {
+      font-size: 15px;
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <img src="icons/icon128.png" alt="Extension Icon" style="display:block;margin:0 auto 18px auto;width:64px;height:64px;border-radius:16px;box-shadow:0 2px 8px rgba(0,0,0,0.12);">
+  <button id="setupBtn">Setup</button>
+  <button id="inputPromptBtn">Input Image Prompt</button>
+  <button id="aistudioPromptBtn">Aistudio Input Prompt</button>
+  <button id="downloadAudioBtn">Download Audio</button>
+  <div id="promptModal">
+    <div id="promptBox">
+      <span id="closeModal">&times;</span>
+      <label for="promptInput">Paste your prompt (4 parts, separated by ---):</label>
+      <textarea id="promptInput"></textarea>
+      <button id="submitPrompt">Send to Gemini Tabs</button>
+    </div>
+  </div>
+  <div id="aistudioPromptModal" style="display:none; position: fixed; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 10;">
+    <div id="aistudioPromptBox" style="background: #fff; margin: 40px auto; padding: 16px; border-radius: 8px; width: 90%; max-width: 300px; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
+      <span id="closeAistudioModal" style="float: right; cursor: pointer;">&times;</span>
+      <label for="aistudioPromptInput">Paste your prompt (4 parts, separated by ---):</label>
+      <textarea id="aistudioPromptInput"></textarea>
+      <button id="submitAistudioPrompt">Send to Aistudio Tabs</button>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html> 

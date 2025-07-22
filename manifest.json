@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "Gemini & Aistudio Multi-Tab Automator",
+  "version": "1.0",
+  "description": "Automate multi-tab workflows for Gemini and Google Aistudio: prompt injection, audio download, and more.",
+  "permissions": ["tabs", "storage", "scripting", "activeTab"],
+  "host_permissions": [
+    "https://gemini.google.com/*",
+    "https://makersuite.google.com/*",
+    "https://claude.ai/*",
+    "https://aistudio.google.com/*"
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://gemini.google.com/app/new*"],
+      "js": ["content_script.js"]
+    },
+    {
+      "matches": ["https://aistudio.google.com/generate-speech*"],
+      "js": ["content_script.js"]
+    }
+  ]
+} 

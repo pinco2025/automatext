@@ -173,4 +173,29 @@ downloadAudioBtn.onclick = async () => {
     }
   }
   alert('Triggered download in all Aistudio tabs in order!');
+};
+
+const generateAudioBtn = document.getElementById('generateAudioBtn');
+generateAudioBtn.onclick = async () => {
+  const { aistudioTabIds } = await chrome.storage.local.get('aistudioTabIds');
+  if (!aistudioTabIds || aistudioTabIds.length !== 4) {
+    alert('Please run Setup first.');
+    return;
+  }
+  for (let i = 0; i < 4; i++) {
+    try {
+      await chrome.scripting.executeScript({
+        target: { tabId: aistudioTabIds[i] },
+        func: () => {
+          if (window.clickAistudioRunButton) {
+            window.clickAistudioRunButton();
+          }
+        }
+      });
+      await new Promise(r => setTimeout(r, 500));
+    } catch (e) {
+      // Optionally handle error
+    }
+  }
+  alert('Triggered Run in all Aistudio tabs!');
 }; 
